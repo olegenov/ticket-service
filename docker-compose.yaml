@@ -1,11 +1,11 @@
 volumes:
-  postgres_data:
+  auth-postgres_data:
 
 services:
-  db:
+  auth-db:
     image: postgres:12.4
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - auth-postgres_data:/var/lib/postgresql/data/
     env_file:
       - .env
     ports:
