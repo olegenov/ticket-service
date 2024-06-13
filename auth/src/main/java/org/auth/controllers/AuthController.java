@@ -61,6 +61,11 @@ public class AuthController {
             return getErrorsRequest(result);
         }
 
+        String password = registerDto.getPassword();
+        if (!isValidPassword(password)) {
+            return ResponseEntity.badRequest().body("Password must be at least 8 characters long and contain uppercase, lowercase letters, digits, and special characters.");
+        }
+
         var encoder = new BCryptPasswordEncoder();
 
         CustomUser user = new CustomUser();
@@ -76,6 +81,11 @@ public class AuthController {
         userService.save(user);
 
         return getTokenResponseEntity(user);
+    }
+
+    private boolean isValidPassword(String password) {
+        String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+        return password.matches(regex);
     }
 
     private ResponseEntity<Object> getTokenResponseEntity(CustomUser user) {
