@@ -21,3 +21,23 @@ services:
       - .env
     ports:
       - "5433:5432"
+  auth-microservice:
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      POSTGRES_HOST: auth-db
+    depends_on:
+      - auth-db
+  tickets-microservice:
+    build:
+      context: ./tickets
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      POSTGRES_HOST: tickets-db
+    depends_on:
+      - tickets-db

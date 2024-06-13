@@ -29,7 +29,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             token = token.substring(7);
 
             try {
-                String url = "http://127.0.0.1:8080/api/users/me";
+                String url = "http://auth-microservice:8080/api/users/me";
                 HttpHeaders headers = new HttpHeaders();
                 headers.set("Authorization", "Bearer " + token);
                 HttpEntity<String> entity = new HttpEntity<>(headers);
